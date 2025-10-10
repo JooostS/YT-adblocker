@@ -12,11 +12,11 @@
 // @description:it  Rimozione del popup del blocco pubblicità di YouTube: Rimuove il fastidioso messaggio popup sull'uso di un blocco pubblicità su YouTube.
 // @description:ar  إزالة النافذة المنبثقة لمانع الإعلانات على يوتيوب: يزيل الرسالة المنبثقة المزعجة حول استخدام مانع الإعلانات على يوتيوب.
 // @description:fr  Supprimeur de popup de bloqueur de publicités YouTube : Supprime le message pop-up ennuyeux sur l'utilisation d'un bloqueur de publicités sur YouTube.
-// @namespace       https://greasyfork.org/users/1221433
+// @namespace       https://greasyfork.org/nl/users/1486038-joostschreudes
 // @icon            https://www.google.com/s2/favicons?sz=64&domain=youtube.com
 // @match           *://www.youtube.com/*
 // @version         2.3
-// @author          Sitego
+// @author          JoostSchreuders
 // @homepageURL     https://ide.onl/
 // @supportURL      https://ide.onl/contact.html
 // @grant           GM_getValue
@@ -231,4 +231,5 @@ style.textContent = `
     }`;
 document.head.appendChild(style);
  
+
 initializeMenuCommands();
