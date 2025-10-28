@@ -16,12 +16,7 @@
 // @icon            https://www.google.com/s2/favicons?sz=64&domain=youtube.com
 // @match           *://www.youtube.com/*
 // @version         2.3
-// @author          JoostSchreuders
-// @homepageURL     https://ide.onl/
-// @supportURL      https://ide.onl/contact.html
-// @grant           GM_getValue
-// @grant           GM_setValue
-// @grant           GM_registerMenuCommand
+// @author          JooostS
 // @license         MIT
 // ==/UserScript==
  
@@ -86,7 +81,7 @@ function handleAdSkipping() {
     }
  
     observeForButton();
-    checkForErrorElement(); // Check for error element after ad skipping
+    checkForErrorElement();
 }
  
 function checkForErrorElement() {
@@ -189,7 +184,7 @@ let allowPauseVideoTimeoutId = 0;
 if (window.MutationObserver) {
     const observer = new MutationObserver((mutationsList) => {
         handleAdSkipping();
-        checkForErrorElement(); // Check for error element on mutations
+        checkForErrorElement(); 
     });
     observer.observe(document.body, {
         attributes: true,
@@ -200,7 +195,7 @@ if (window.MutationObserver) {
 } else {
     window.setInterval(() => {
         handleAdSkipping();
-        checkForErrorElement(); // Check for error element on interval
+        checkForErrorElement();
     }, 500);
 }
  
@@ -233,3 +228,4 @@ document.head.appendChild(style);
  
 
 initializeMenuCommands();
+
