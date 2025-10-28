@@ -15,7 +15,7 @@
 // @namespace       https://greasyfork.org/nl/users/1486038-joostschreudes
 // @icon            https://www.google.com/s2/favicons?sz=64&domain=youtube.com
 // @match           *://www.youtube.com/*
-// @version         2.3
+// @version         1.0
 // @author          JooostS
 // @license         MIT
 // ==/UserScript==
@@ -228,4 +228,5 @@ document.head.appendChild(style);
  
 
 initializeMenuCommands();
+
 
