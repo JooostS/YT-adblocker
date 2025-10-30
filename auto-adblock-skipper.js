@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name            Auto adblock skipper on Youtube
 // @namespace       https://greasyfork.org/nl/users/1486038-JooostS
-// @version         2.6
-// @author          JoostSchreuders
-// @description     Auto-skips ads and removes adblock popups on YouTube.
+// @version         2.7
+// @author          JooostS
+// @description     Auto-skips all ads and removes adblock popups on YouTube more reliably.
 // @description:de  Entfernt die lästige Popup-Nachricht zur Verwendung eines Adblockers auf YouTube.
 // @description:ru  Удаление всплывающего окна об использовании блокировщика рекламы на YouTube.
 // @description:uk  Видалення спливаючого вікна про використання блокувальника реклами на YouTube.
@@ -37,17 +37,21 @@ function getSkipButton() {
 
 function skipAd() {
   const player = document.querySelector('#movie_player');
-  if (!player || !player.classList.contains('ad-showing')) return;
+  if (!player) return;
 
   video = player.querySelector('video.html5-main-video');
-  const skipButton = getSkipButton();
+  if (!video) return;
 
-  if (skipButton) {
-    skipButton.click();
-    log('Ad skipped via button.');
-  } else if (video && video.src) {
-    video.currentTime = video.duration || 9999;
-    log('Ad skipped via fast-forward.');
+  if (player.classList.contains('ad-showing')) {
+    const skipButton = getSkipButton();
+    if (skipButton) {
+      skipButton.click();
+      log('Ad skipped via button.');
+    } else {
+      video.currentTime = video.duration || 9999;
+      video.playbackRate = 16;
+      log('Ad accelerated.');
+    }
   }
 }
 
@@ -110,7 +114,9 @@ function applyCustomStyles() {
     ytd-rich-item-renderer:has(.ytd-ad-slot-renderer),
     ytd-reel-video-renderer:has(.ytd-ad-slot-renderer),
     .ytp-suggested-action, .ytp-endscreen-content,
-    .ytp-ce-element, .ytp-pause-overlay {
+    .ytp-ce-element, .ytp-pause-overlay,
+    .ytp-ad-image-overlay, .ytp-ad-overlay-slot, .ytp-ad-module,
+    .ytd-promoted-video-renderer, ytd-display-ad-renderer {
       display: none !important;
     }
   `;
@@ -125,6 +131,9 @@ function setupEventListeners() {
   window.addEventListener('keyup', e => {
     if (e.code === 'Space') enableVideoPause();
   });
+  document.addEventListener('yt-navigate-finish', () => {
+    observePlayer();
+  });
 }
 
 function init() {
@@ -132,9 +141,14 @@ function init() {
   observePlayer();
   setupEventListeners();
   initializeMenuCommands();
-  log('Script initialized.');
+
+  // periodic check for reliability
+  setInterval(() => {
+    skipAd();
+    removeAdblockPopups();
+  }, 1000);
+
+  log('Script initialized (improved version).');
 }
 
 init();
-``
-
