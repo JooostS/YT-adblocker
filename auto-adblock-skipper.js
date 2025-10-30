@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            Auto adblock skipper on Youtube
-// @description     Removes the popup message about using an adblocker on YouTube.
+// @description     Auto-skips ads and removes adblock popups on YouTube.
 // @description:de  Entfernt die lästige Popup-Nachricht zur Verwendung eines Adblockers auf YouTube.
 // @description:ru  Удаление всплывающего окна об использовании блокировщика рекламы на YouTube.
 // @description:uk  Видалення спливаючого вікна про використання блокувальника реклами на YouTube.
@@ -15,8 +15,13 @@
 // @namespace       https://greasyfork.org/nl/users/1486038-joostschreudes
 // @icon            https://www.google.com/s2/favicons?sz=64&domain=youtube.com
 // @match           *://www.youtube.com/*
-// @version         1.0
+// @version         2.4
 // @author          JooostS
+// @homepageURL     https://ide.onl/
+// @supportURL      https://ide.onl/contact.html
+// @grant           GM_getValue
+// @grant           GM_setValue
+// @grant           GM_registerMenuCommand
 // @license         MIT
 // ==/UserScript==
  
@@ -81,7 +86,7 @@ function handleAdSkipping() {
     }
  
     observeForButton();
-    checkForErrorElement();
+    checkForErrorElement(); // Check for error element after ad skipping
 }
  
 function checkForErrorElement() {
@@ -184,7 +189,7 @@ let allowPauseVideoTimeoutId = 0;
 if (window.MutationObserver) {
     const observer = new MutationObserver((mutationsList) => {
         handleAdSkipping();
-        checkForErrorElement(); 
+        checkForErrorElement(); // Check for error element on mutations
     });
     observer.observe(document.body, {
         attributes: true,
@@ -195,7 +200,7 @@ if (window.MutationObserver) {
 } else {
     window.setInterval(() => {
         handleAdSkipping();
-        checkForErrorElement();
+        checkForErrorElement(); // Check for error element on interval
     }, 500);
 }
  
@@ -228,5 +233,3 @@ document.head.appendChild(style);
  
 
 initializeMenuCommands();
-
-
