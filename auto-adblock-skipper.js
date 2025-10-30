@@ -1,7 +1,8 @@
 // ==UserScript==
 // @name            Auto adblock skipper on Youtube
 // @namespace       https://greasyfork.org/nl/users/1486038-JooostS
-// @version         2.5
+// @version         2.6
+// @author          JoostSchreuders
 // @description     Auto-skips ads and removes adblock popups on YouTube.
 // @description:de  Entfernt die lästige Popup-Nachricht zur Verwendung eines Adblockers auf YouTube.
 // @description:ru  Удаление всплывающего окна об использовании блокировщика рекламы на YouTube.
@@ -136,3 +137,4 @@ function init() {
 
 init();
 ``
+
